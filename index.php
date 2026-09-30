@@ -31,7 +31,7 @@
 
          fputcsv($csv, [$nome, $preco , $url, $img],';');
       }
-          echo "pagina".$index." ok\n";
+          echo "pagina ".$index." ok\n";
     }
 
      fclose($csv);
