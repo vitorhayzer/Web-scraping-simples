@@ -1,9 +1,16 @@
 <?php
 
     $csv = fopen('result.csv', 'w');
-    fputcsv($csv,['nome',"test"],';');
+    fputcsv($csv,['nome',"preço"],';');
 
-    $url  = "https://www.scrapingcourse.com/ecommerce/";
+    for($index = 1; $index <=12; $index++){
+
+    $page = "";
+    if ($index > 1){ 
+     $page = "page/$index/";
+     }
+
+    $url  = "https://www.scrapingcourse.com/ecommerce/$page";
     $html = file_get_contents($url);
 
     $dom = new DOMDocument();
@@ -15,13 +22,16 @@
          $nome = $xpath->query('.//h2[contains(@class,"product-name")]', $produto)->item(0);
          $nome = $nome ? trim($nome->nodeValue) : '';
 
-            $test="test";
-         fputcsv($csv, [$nome, $test],';');
+         $preco = $xpath->query('.//span[contains(@class,"woocommerce-Price")]', $produto)->item(0);
+         $preco = $preco? trim($preco->nodeValue) : '';
 
+         fputcsv($csv, [$nome, $preco],';');
+      }
+          echo "pagina".$index." ok\n";
     }
 
      fclose($csv);
-     echo "Pronto: produtos.csv\n";
+     echo "\n result.csv pronto \n";
 ?>
 
-//,'preço','url','imagem'
+//'url','imagem'
