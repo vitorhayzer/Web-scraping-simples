@@ -1,7 +1,7 @@
 <?php
 
     $csv = fopen('result.csv', 'w');
-    fputcsv($csv,['nome',"preço"],';');
+    fputcsv($csv,['nome','preço','url','urlImg'],';');
 
     for($index = 1; $index <=12; $index++){
 
@@ -25,7 +25,11 @@
          $preco = $xpath->query('.//span[contains(@class,"woocommerce-Price")]', $produto)->item(0);
          $preco = $preco? trim($preco->nodeValue) : '';
 
-         fputcsv($csv, [$nome, $preco],';');
+         $url = $xpath->query('.//a[contains(@class,"woocommerce-LoopProduct-link")]', $produto)->item(0)->getAttribute('href');
+
+         $img = $xpath->query('.//img[contains(@class,"attachment-woocommerce_thumbnail")]', $produto)->item(0)->getAttribute('src');
+
+         fputcsv($csv, [$nome, $preco , $url, $img],';');
       }
           echo "pagina".$index." ok\n";
     }
@@ -33,5 +37,3 @@
      fclose($csv);
      echo "\n result.csv pronto \n";
 ?>
-
-//'url','imagem'
