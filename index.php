@@ -32,6 +32,7 @@
          fputcsv($csv, [$nome, $preco , $url, $img],';');
       }
           echo "pagina ".$index." ok\n";
+          sleep(1); 
     }
 
      fclose($csv);
