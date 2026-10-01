@@ -1,7 +1,7 @@
 <?php  
 
  $csv = fopen('result.csv', 'w');
- fputcsv($csv,['nome','ano'],';');
+ fputcsv($csv,['nome','ano','ganhou','perdeu'],';');
 
  $count = 0;
 
@@ -22,7 +22,13 @@ for($index = 1; $index <=6; $index++){
      $ano = $xpath->query('.//td[@class="year"]', $team)->item(0);
      $ano = $ano? trim($ano->nodeValue) : '';
 
-     fputcsv($csv, [$nome, $ano],';');
+     $wins = $xpath->query('.//td[@class="wins"]', $team)->item(0);
+     $wins = $wins? trim($wins->nodeValue) : '';
+
+     $losses = $xpath->query('.//td[@class="losses"]', $team)->item(0);
+     $losses = $losses? trim($losses->nodeValue) : '';
+
+     fputcsv($csv, [$nome, $ano, $wins, $losses],';');
      $count++;
     }
 
