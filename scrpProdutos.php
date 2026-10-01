@@ -20,7 +20,7 @@
     foreach ($xpath->query('//li[@data-products="item"]') as $produto) {
 
          $nome = $xpath->query('.//h2[contains(@class,"product-name")]', $produto)->item(0);
-         $nome = $nome ? trim($nome->nodeValue) : '';
+         $nome = $nome? trim($nome->nodeValue) : '';
 
          $preco = $xpath->query('.//span[contains(@class,"woocommerce-Price")]', $produto)->item(0);
          $preco = $preco? trim($preco->nodeValue) : '';
@@ -29,7 +29,7 @@
 
          $img = $xpath->query('.//img[contains(@class,"attachment-woocommerce_thumbnail")]', $produto)->item(0)->getAttribute('src');
 
-         fputcsv($csv, [$nome, $preco , $url, $img],';');
+         fputcsv($csv, [$nome, $preco, $url, $img],';');
       }
           echo "pagina ".$index." ok\n";
           sleep(1); 
