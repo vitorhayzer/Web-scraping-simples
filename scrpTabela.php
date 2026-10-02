@@ -1,7 +1,7 @@
 <?php  
 
  $csv = fopen('result.csv', 'w');
- fputcsv($csv,['nome','ano','ganhou','perdeu'],';');
+ fputcsv($csv,['nome','ano','ganhou','perdeu','porcentagem vitória','gols','gols tomados','diferença gols'],';');
 
  $count = 0;
 
@@ -28,7 +28,21 @@ for($index = 1; $index <=6; $index++){
      $losses = $xpath->query('.//td[@class="losses"]', $team)->item(0);
      $losses = $losses? trim($losses->nodeValue) : '';
 
-     fputcsv($csv, [$nome, $ano, $wins, $losses],';');
+     $perc = $xpath->query('.//td[contains(@class, "pct text-")]', $team)->item(0);
+     $perc = $perc? trim($perc->nodeValue) : '';
+
+     $golsAFavor = $xpath->query('.//td[@class="gf"]', $team)->item(0);
+     $golsAFavor = $golsAFavor? trim($golsAFavor->nodeValue) : '';
+
+     $golsContra = $xpath->query('.//td[@class="ga"]', $team)->item(0);
+     $golsContra = $golsContra? trim($golsContra->nodeValue) : '';
+
+     $dif = $xpath->query('.//td[contains(@class, "diff text-")]', $team)->item(0);
+     $dif = $dif? trim($dif->nodeValue) : '';
+     
+     
+
+     fputcsv($csv, [$nome, $ano, $wins, $losses, $perc, $golsAFavor, $golsContra, $dif],';');
      $count++;
     }
 
@@ -36,6 +50,5 @@ for($index = 1; $index <=6; $index++){
           sleep(1); 
 }
 
-echo "\n tabela com [".$count."] elementos registrada";
-
+echo "\n tabela com [".$count."] elementos registrada\n";
 ?>
