@@ -1,6 +1,6 @@
 <?php  
 
- $csv = fopen('result.csv', 'w');
+ $csv = fopen('resultT.csv', 'w');
  fputcsv($csv,['nome','ano','ganhou','perdeu','porcentagem vitória','gols','gols tomados','diferença gols'],';');
 
  $count = 0;

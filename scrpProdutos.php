@@ -1,6 +1,6 @@
 <?php
 
-    $csv = fopen('result.csv', 'w');
+    $csv = fopen('resultP.csv', 'w');
     fputcsv($csv,['nome','preço','url','urlImg'],';');
 
     for($index = 1; $index <=12; $index++){
@@ -36,5 +36,5 @@
     }
 
      fclose($csv);
-     echo "\n result.csv pronto \n";
+     echo "\n resultP.csv pronto \n";
 ?>
