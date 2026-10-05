@@ -1,19 +1,19 @@
 <?php
 
-    $csv = fopen('resultUOL.csv', 'w');
+    $csv = fopen('resultF.csv', 'w');
     fputcsv($csv,['paragrafo'],';');
 
 
-    $url  = "https://economia.uol.com.br/noticias/redacao/2020/07/24/a-cultura-do-google-e-quase-como-um-reator-nuclear.htm";
+    $url  = "https://forbes.com.br/carreira/2023/03/google-reduz-promocoes-para-lideranca-e-cria-competicao-entre-funcionarios/";
     $html = file_get_contents($url);
 
     $dom = new DOMDocument();
     @$dom->loadHTML($html);
     $xpath = new DOMXPath($dom);
 
-    foreach ($xpath->query('//div[@class="text  "]') as $div) {
+    foreach ($xpath->query('//div[@class="content"]') as $div) {
 
-         $par = $xpath->query('.//p[@dir="ltr"]', $div);
+         $par = $xpath->query('.//span[contains(@style,"font")]', $div);
         
      foreach ($par as $p) {
         $texto = trim($p->nodeValue);
@@ -24,5 +24,5 @@
 
     }
      fclose($csv);
-     echo "\n resultUOL.csv pronto \n";
+     echo "\n resultF.csv pronto \n";
 ?>
